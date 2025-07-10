@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 class GitHubApi {
   GitHubApi(this._dio);
-
+  
   final Dio _dio;
 
   Future<Map<String, dynamic>> searchRepositories(String query) async {
@@ -33,7 +33,7 @@ class GitHubApi {
       final response = await _dio.get(
         'https://api.github.com/repos/$owner/$repo/issues',
         queryParameters: {
-          'state': 'all',
+          'state': 'open',
           'per_page': 30,
         },
       );
@@ -52,7 +52,7 @@ class GitHubApi {
       final response = await _dio.get(
         'https://api.github.com/repos/$owner/$repo/pulls',
         queryParameters: {
-          'state': 'all',
+          'state': 'open',
           'per_page': 30,
         },
       );
