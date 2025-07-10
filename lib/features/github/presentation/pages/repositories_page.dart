@@ -1,9 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github/features/github/presentation/cubits/repositories_cubit.dart';
 import 'package:github/features/github/presentation/cubits/repositories_state.dart';
-import 'package:github/features/github/presentation/widgets/repository_card.dart';
+import 'package:github/features/github/presentation/widgets/empty_repositories_widget.dart';
+import 'package:github/features/github/presentation/widgets/error_widget.dart';
+import 'package:github/features/github/presentation/widgets/initial_repository_searching_widget.dart';
+import 'package:github/features/github/presentation/widgets/repository_list_tile.dart';
 
 class RepositoriesPage extends StatefulWidget {
   const RepositoriesPage({super.key});
@@ -68,57 +72,18 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
     return BlocBuilder<RepositoriesCubit, RepositoriesState>(
       builder: (context, state) {
         return switch (state) {
-          RepositoriesInitial() => const Center(
-              child: Text(
-                'Start typing to search repositories',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-            ),
+          RepositoriesInitial() => const InitialRepositorySearchWidget(),
           RepositoriesLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
-          RepositoriesError(message: final message) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    size: 64,
-                    color: Colors.red,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Error: $message',
-                    style: const TextStyle(fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+          RepositoriesError(message: final message) =>
+            RepositoriesErrorWidget(message: message),
           RepositoriesLoaded(
             repositories: final repositories,
             query: final query
           ) =>
             repositories.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.search_off,
-                          size: 64,
-                          color: Colors.grey,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No repositories found for "$query"',
-                          style:
-                              const TextStyle(fontSize: 16, color: Colors.grey),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  )
+                ? EmptyRepositoriesWidget(query: query)
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: repositories.length,
@@ -126,7 +91,7 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
                       final repository = repositories[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: RepositoryCard(repository: repository),
+                        child: RepositoryListTile(repository: repository),
                       );
                     },
                   ),

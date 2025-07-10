@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:github/features/github/domain/entities/repository_entity.dart';
+import 'package:github/features/github/presentation/widgets/stat_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RepositoryCard extends StatelessWidget {
-  const RepositoryCard({
+class RepositoryListTile extends StatelessWidget {
+  const RepositoryListTile({
     required this.repository,
     super.key,
   });
@@ -90,35 +91,26 @@ class RepositoryCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                   ],
-                  _buildStat(Icons.star, repository.stars.toString()),
+                  RepositoryStatWidget(
+                    icon: Icons.star,
+                    value: repository.stars.toString(),
+                  ),
                   const SizedBox(width: 16),
-                  _buildStat(Icons.fork_right, repository.forks.toString()),
+                  RepositoryStatWidget(
+                    icon: Icons.fork_right,
+                    value: repository.forks.toString(),
+                  ),
                   const SizedBox(width: 16),
-                  _buildStat(Icons.visibility, repository.watchers.toString()),
+                  RepositoryStatWidget(
+                    icon: Icons.visibility,
+                    value: repository.watchers.toString(),
+                  ),
                 ],
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildStat(IconData icon, String value) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 16, color: Colors.grey[600]),
-        const SizedBox(width: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 
