@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:github/core/di/injectable.dart';
-import 'package:github/features/github/presentation/cubits/repositories_cubit.dart';
+import 'package:github/features/github/presentation/cubits/repositories/repositories_cubit.dart';
 import 'package:github/features/github/presentation/pages/repositories_page.dart';
 
 void main() async {
@@ -14,7 +14,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

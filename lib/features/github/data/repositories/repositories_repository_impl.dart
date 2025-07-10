@@ -1,4 +1,6 @@
 import 'package:github/features/github/data/api/github_api.dart';
+import 'package:github/features/github/domain/entities/issue_entity.dart';
+import 'package:github/features/github/domain/entities/pull_request_entity.dart';
 import 'package:github/features/github/domain/entities/repository_entity.dart';
 import 'package:github/features/github/domain/repositories/repositories_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +23,33 @@ class RepositoriesRepositoryImpl implements RepositoriesRepository {
           .toList();
     } catch (e) {
       throw Exception('Failed to search repositories: $e');
+    }
+  }
+
+  @override
+  Future<List<IssueEntity>> getRepositoryIssues(
+    String owner,
+    String repo,
+  ) async {
+    try {
+      final issuesData = await _api.getRepositoryIssues(owner, repo);
+      return issuesData.map(IssueEntity.fromJson).toList();
+    } catch (e) {
+      throw Exception('Failed to get repository issues: $e');
+    }
+  }
+
+  @override
+  Future<List<PullRequestEntity>> getRepositoryPullRequests(
+    String owner,
+    String repo,
+  ) async {
+    try {
+      final pullRequestsData =
+          await _api.getRepositoryPullRequests(owner, repo);
+      return pullRequestsData.map(PullRequestEntity.fromJson).toList();
+    } catch (e) {
+      throw Exception('Failed to get repository pull requests: $e');
     }
   }
 }

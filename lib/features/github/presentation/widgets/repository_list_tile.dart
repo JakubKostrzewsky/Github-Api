@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github/features/github/domain/entities/repository_entity.dart';
+import 'package:github/features/github/presentation/pages/repository_details_page.dart';
 import 'package:github/features/github/presentation/widgets/stat_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class RepositoryListTile extends StatelessWidget {
   const RepositoryListTile({
@@ -19,7 +19,7 @@ class RepositoryListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () => _launchUrl(repository.htmlUrl),
+        onTap: () => _navigateToDetails(context),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -114,10 +114,11 @@ class RepositoryListTile extends StatelessWidget {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    }
+  void _navigateToDetails(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => RepositoryDetailsPage(repository: repository),
+      ),
+    );
   }
 }

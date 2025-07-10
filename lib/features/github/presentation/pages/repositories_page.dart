@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github/features/github/presentation/cubits/repositories_cubit.dart';
-import 'package:github/features/github/presentation/cubits/repositories_state.dart';
+import 'package:github/features/github/presentation/cubits/repositories/repositories_cubit.dart';
+import 'package:github/features/github/presentation/cubits/repositories/repositories_state.dart';
 import 'package:github/features/github/presentation/widgets/empty_repositories_widget.dart';
 import 'package:github/features/github/presentation/widgets/error_widget.dart';
 import 'package:github/features/github/presentation/widgets/initial_repository_searching_widget.dart';

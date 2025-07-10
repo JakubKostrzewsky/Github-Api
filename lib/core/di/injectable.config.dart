@@ -19,8 +19,12 @@ import 'package:github/features/github/domain/repositories/repositories_reposito
     as _i286;
 import 'package:github/features/github/domain/usecases/get_repositories_usecase.dart'
     as _i43;
-import 'package:github/features/github/presentation/cubits/repositories_cubit.dart'
-    as _i902;
+import 'package:github/features/github/domain/usecases/get_repository_details_usecase.dart'
+    as _i209;
+import 'package:github/features/github/presentation/cubits/repositories/repositories_cubit.dart'
+    as _i952;
+import 'package:github/features/github/presentation/cubits/repository_details/repository_details_cubit.dart'
+    as _i463;
 import 'package:injectable/injectable.dart' as _i526;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -41,8 +45,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i444.RepositoriesRepositoryImpl(gh<_i89.GitHubApi>()));
     gh.factory<_i43.GetRepositoriesUseCase>(
         () => _i43.GetRepositoriesUseCase(gh<_i286.RepositoriesRepository>()));
-    gh.factory<_i902.RepositoriesCubit>(
-        () => _i902.RepositoriesCubit(gh<_i43.GetRepositoriesUseCase>()));
+    gh.factory<_i209.GetRepositoryDetailsUseCase>(() =>
+        _i209.GetRepositoryDetailsUseCase(gh<_i286.RepositoriesRepository>()));
+    gh.factory<_i952.RepositoriesCubit>(
+        () => _i952.RepositoriesCubit(gh<_i43.GetRepositoriesUseCase>()));
+    gh.factory<_i463.RepositoryDetailsCubit>(() =>
+        _i463.RepositoryDetailsCubit(gh<_i209.GetRepositoryDetailsUseCase>()));
     return this;
   }
 }

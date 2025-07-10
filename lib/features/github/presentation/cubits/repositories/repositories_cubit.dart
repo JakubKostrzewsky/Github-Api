@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:github/features/github/domain/usecases/get_repositories_usecase.dart';
-import 'package:github/features/github/presentation/cubits/repositories_state.dart';
+import 'package:github/features/github/presentation/cubits/repositories/repositories_state.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
