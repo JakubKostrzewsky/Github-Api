@@ -7,9 +7,9 @@ import 'package:github/features/github/presentation/cubits/repository_details/re
 import 'package:github/features/github/presentation/widgets/error_widget.dart';
 import 'package:github/features/github/presentation/widgets/issues_tab.dart';
 import 'package:github/features/github/presentation/widgets/pull_requests_tab.dart';
-import 'package:github/features/github/presentation/widgets/stat_widget.dart';
+import 'package:github/features/github/presentation/widgets/repository_details_header.dart';
 
-class RepositoryDetailsPage extends StatefulWidget {
+class RepositoryDetailsPage extends StatelessWidget {
   const RepositoryDetailsPage({
     required this.repository,
     super.key,
@@ -18,19 +18,14 @@ class RepositoryDetailsPage extends StatefulWidget {
   final RepositoryEntity repository;
 
   @override
-  State<RepositoryDetailsPage> createState() => _RepositoryDetailsPageState();
-}
-
-class _RepositoryDetailsPageState extends State<RepositoryDetailsPage> {
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl.get<RepositoryDetailsCubit>()
         ..loadRepositoryDetails(
-          owner: widget.repository.owner,
-          repo: widget.repository.name,
+          owner: repository.owner,
+          repo: repository.name,
         ),
-      child: _RepositoryDetailsContent(repository: widget.repository),
+      child: _RepositoryDetailsContent(repository: repository),
     );
   }
 }
@@ -43,10 +38,12 @@ class _RepositoryDetailsContent extends StatefulWidget {
   final RepositoryEntity repository;
 
   @override
-  State<_RepositoryDetailsContent> createState() => _RepositoryDetailsContentState();
+  State<_RepositoryDetailsContent> createState() =>
+      _RepositoryDetailsContentState();
 }
 
-class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent> with TickerProviderStateMixin {
+class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -75,7 +72,7 @@ class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent> wi
               ),
             RepositoryDetailsLoaded(:final details) => Column(
                 children: [
-                  _RepositoryHeader(repository: widget.repository),
+                  RepositoryDetailsHeader(repository: widget.repository),
                   Expanded(
                     child: Column(
                       children: [
@@ -102,122 +99,10 @@ class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent> wi
                   ),
                 ],
               ),
-            RepositoryDetailsError(:final message) => RepositoriesErrorWidget(message: message),
+            RepositoryDetailsError(:final message) =>
+              RepositoriesErrorWidget(message: message),
           };
         },
-      ),
-    );
-  }
-}
-
-class _RepositoryHeader extends StatelessWidget {
-  const _RepositoryHeader({
-    required this.repository,
-  });
-
-  final RepositoryEntity repository;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        border: Border(
-          bottom: BorderSide(
-            color: theme.dividerColor,
-          ),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Repository name and owner
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(repository.ownerAvatarUrl),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      repository.fullName,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'by ${repository.owner}',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.textTheme.bodySmall?.color,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          // Description
-          if (repository.description.isNotEmpty) ...[
-            Text(
-              repository.description,
-              style: theme.textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 16),
-          ],
-
-          // Stats row
-          Row(
-            children: [
-              StatWidget(
-                icon: Icons.star,
-                value: repository.stars.toString(),
-                label: 'Stars',
-              ),
-              const SizedBox(width: 16),
-              StatWidget(
-                icon: Icons.fork_right,
-                value: repository.forks.toString(),
-                label: 'Forks',
-              ),
-              const SizedBox(width: 16),
-              StatWidget(
-                icon: Icons.visibility,
-                value: repository.watchers.toString(),
-                label: 'Watchers',
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-
-          // Language
-          if (repository.language != 'Unknown')
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 4,
-              ),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                repository.language,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }
