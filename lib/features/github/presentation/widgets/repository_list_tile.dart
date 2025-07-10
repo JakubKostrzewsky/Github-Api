@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github/features/github/domain/entities/repository_entity.dart';
 import 'package:github/features/github/presentation/pages/repository_details_page.dart';
-import 'package:github/features/github/presentation/widgets/stat_widget.dart';
 
 class RepositoryListTile extends StatelessWidget {
   const RepositoryListTile({
@@ -23,89 +22,47 @@ class RepositoryListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage: NetworkImage(repository.ownerAvatarUrl),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          repository.fullName,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          'by ${repository.owner}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              // Repository icon
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(repository.ownerAvatarUrl),
               ),
-              if (repository.description.isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Text(
-                  repository.description,
-                  style: const TextStyle(fontSize: 14),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  if (repository.language.isNotEmpty) ...[
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
+              const SizedBox(width: 12),
+              // Title and subtitle
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      repository.fullName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        repository.language,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue[800],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(width: 12),
+                    Text(
+                      repository.description.isNotEmpty
+                          ? repository.description
+                          : 'by ${repository.owner}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
-                  RepositoryStatWidget(
-                    icon: Icons.star,
-                    value: repository.stars.toString(),
-                  ),
-                  const SizedBox(width: 16),
-                  RepositoryStatWidget(
-                    icon: Icons.fork_right,
-                    value: repository.forks.toString(),
-                  ),
-                  const SizedBox(width: 16),
-                  RepositoryStatWidget(
-                    icon: Icons.visibility,
-                    value: repository.watchers.toString(),
-                  ),
-                ],
+                ),
+              ),
+              // Opening icon
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: Colors.grey[400],
               ),
             ],
           ),
