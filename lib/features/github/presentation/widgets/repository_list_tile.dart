@@ -45,9 +45,7 @@ class RepositoryListTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      repository.description.isNotEmpty
-                          ? repository.description
-                          : 'by ${repository.owner}',
+                      repository.description.isNotEmpty ? repository.description : 'by ${repository.owner}',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[600],

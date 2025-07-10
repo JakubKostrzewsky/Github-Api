@@ -24,8 +24,7 @@ class RepositoryEntity extends Equatable {
       fullName: json['full_name'] as String,
       description: json['description'] as String? ?? '',
       owner: (json['owner'] as Map<String, dynamic>)['login'] as String,
-      ownerAvatarUrl:
-          (json['owner'] as Map<String, dynamic>)['avatar_url'] as String,
+      ownerAvatarUrl: (json['owner'] as Map<String, dynamic>)['avatar_url'] as String,
       language: json['language'] as String? ?? 'Unknown',
       stars: json['stargazers_count'] as int,
       forks: json['forks_count'] as int,

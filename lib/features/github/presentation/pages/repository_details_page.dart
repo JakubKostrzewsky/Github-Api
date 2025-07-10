@@ -43,12 +43,10 @@ class _RepositoryDetailsContent extends StatefulWidget {
   final RepositoryEntity repository;
 
   @override
-  State<_RepositoryDetailsContent> createState() =>
-      _RepositoryDetailsContentState();
+  State<_RepositoryDetailsContent> createState() => _RepositoryDetailsContentState();
 }
 
-class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent>
-    with TickerProviderStateMixin {
+class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -94,7 +92,8 @@ class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent>
                             children: [
                               IssuesTab(issues: details.issues),
                               PullRequestsTab(
-                                  pullRequests: details.pullRequests),
+                                pullRequests: details.pullRequests,
+                              ),
                             ],
                           ),
                         ),
@@ -103,8 +102,7 @@ class _RepositoryDetailsContentState extends State<_RepositoryDetailsContent>
                   ),
                 ],
               ),
-            RepositoryDetailsError(:final message) =>
-              RepositoriesErrorWidget(message: message),
+            RepositoryDetailsError(:final message) => RepositoriesErrorWidget(message: message),
           };
         },
       ),
@@ -130,7 +128,6 @@ class _RepositoryHeader extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: theme.dividerColor,
-            width: 1,
           ),
         ),
       ),

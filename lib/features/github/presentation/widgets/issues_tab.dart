@@ -23,9 +23,8 @@ class IssuesTab extends StatelessWidget {
           subtitle: Text('By ${issue.user} • ${issue.state}'),
           trailing: Chip(
             label: Text('#${issue.number}'),
-            backgroundColor: issue.state == 'open'
-                ? Colors.green.withValues(alpha: 0.2)
-                : Colors.red.withValues(alpha: 0.2),
+            backgroundColor:
+                issue.state == 'open' ? Colors.green.withValues(alpha: 0.2) : Colors.red.withValues(alpha: 0.2),
           ),
         );
       },

@@ -24,14 +24,11 @@ class PullRequestEntity extends Equatable {
       body: json['body'] as String? ?? '',
       state: json['state'] as String,
       user: (json['user'] as Map<String, dynamic>)['login'] as String,
-      userAvatarUrl:
-          (json['user'] as Map<String, dynamic>)['avatar_url'] as String,
+      userAvatarUrl: (json['user'] as Map<String, dynamic>)['avatar_url'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       htmlUrl: json['html_url'] as String,
-      mergedAt: json['merged_at'] != null
-          ? DateTime.parse(json['merged_at'] as String)
-          : null,
+      mergedAt: json['merged_at'] != null ? DateTime.parse(json['merged_at'] as String) : null,
       isMerged: json['merged'] as bool? ?? false,
     );
   }

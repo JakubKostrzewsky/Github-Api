@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 class GitHubApi {
   GitHubApi(this._dio);
-  
+
   final Dio _dio;
 
   Future<Map<String, dynamic>> searchRepositories(String query) async {

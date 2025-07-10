@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetRepositoriesUseCase {
-
   const GetRepositoriesUseCase(this._repository);
+
   final RepositoriesRepository _repository;
 
   Future<List<RepositoryEntity>> call(String query) async {

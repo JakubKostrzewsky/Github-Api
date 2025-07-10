@@ -5,8 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class RepositoryDetailsCubit extends Cubit<RepositoryDetailsState> {
-  RepositoryDetailsCubit(this._getRepositoryDetailsUseCase)
-      : super(const RepositoryDetailsLoading());
+  RepositoryDetailsCubit(this._getRepositoryDetailsUseCase) : super(const RepositoryDetailsLoading());
 
   final GetRepositoryDetailsUseCase _getRepositoryDetailsUseCase;
 

@@ -15,8 +15,7 @@ class GetRepositoryDetailsUseCase {
     String repo,
   ) async {
     final issuesFuture = _repository.getRepositoryIssues(owner, repo);
-    final pullRequestsFuture =
-        _repository.getRepositoryPullRequests(owner, repo);
+    final pullRequestsFuture = _repository.getRepositoryPullRequests(owner, repo);
 
     final results = await Future.wait([issuesFuture, pullRequestsFuture]);
     final issues = results[0] as List<IssueEntity>;

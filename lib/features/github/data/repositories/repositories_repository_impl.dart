@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: RepositoriesRepository)
 class RepositoriesRepositoryImpl implements RepositoriesRepository {
   const RepositoriesRepositoryImpl(this._api);
+
   final GitHubApi _api;
 
   @override
@@ -45,8 +46,7 @@ class RepositoriesRepositoryImpl implements RepositoriesRepository {
     String repo,
   ) async {
     try {
-      final pullRequestsData =
-          await _api.getRepositoryPullRequests(owner, repo);
+      final pullRequestsData = await _api.getRepositoryPullRequests(owner, repo);
       return pullRequestsData.map(PullRequestEntity.fromJson).toList();
     } catch (e) {
       throw Exception('Failed to get repository pull requests: $e');

@@ -30,9 +30,8 @@ class PullRequestsTab extends StatelessWidget {
               if (pr.isMerged) const Icon(Icons.merge, color: Colors.purple),
               Chip(
                 label: Text('#${pr.number}'),
-                backgroundColor: pr.state == 'open'
-                    ? Colors.green.withValues(alpha: 0.2)
-                    : Colors.red.withValues(alpha: 0.2),
+                backgroundColor:
+                    pr.state == 'open' ? Colors.green.withValues(alpha: 0.2) : Colors.red.withValues(alpha: 0.2),
               ),
             ],
           ),

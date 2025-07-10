@@ -33,7 +33,7 @@ void main() {
             'order': 'desc',
             'per_page': 30,
           },
-        )).thenAnswer((_) async => mockResponse);
+        ),).thenAnswer((_) async => mockResponse);
 
         // Act
         final result = await api.searchRepositories(query);
@@ -50,7 +50,7 @@ void main() {
             'order': 'desc',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
 
       test('should throw exception when API call fails', () async {
@@ -59,10 +59,10 @@ void main() {
         when(mockDio.get<Map<String, dynamic>>(
           any,
           queryParameters: anyNamed('queryParameters'),
-        )).thenThrow(DioException(
-          requestOptions: RequestOptions(path: ''),
+        ),).thenThrow(DioException(
+          requestOptions: RequestOptions(),
           response: TestData.apiSearchRepositoriesErrorDioResponse,
-        ));
+        ),);
 
         // Act & Assert
         expect(
@@ -77,7 +77,7 @@ void main() {
             'order': 'desc',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
     });
 
@@ -94,7 +94,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).thenAnswer((_) async => mockResponse);
+        ),).thenAnswer((_) async => mockResponse);
 
         // Act
         final result = await api.getRepositoryIssues(owner, repo);
@@ -110,7 +110,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
 
       test('should throw exception when API call fails', () async {
@@ -120,10 +120,10 @@ void main() {
         when(mockDio.get<List<dynamic>>(
           any,
           queryParameters: anyNamed('queryParameters'),
-        )).thenThrow(DioException(
-          requestOptions: RequestOptions(path: ''),
+        ),).thenThrow(DioException(
+          requestOptions: RequestOptions(),
           response: TestData.apiSearchRepositoriesErrorDioResponse,
-        ));
+        ),);
 
         // Act & Assert
         expect(
@@ -136,7 +136,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
     });
 
@@ -154,7 +154,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).thenAnswer((_) async => mockResponse);
+        ),).thenAnswer((_) async => mockResponse);
 
         // Act
         final result = await api.getRepositoryPullRequests(owner, repo);
@@ -170,7 +170,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
 
       test('should throw exception when API call fails', () async {
@@ -180,10 +180,10 @@ void main() {
         when(mockDio.get<List<dynamic>>(
           any,
           queryParameters: anyNamed('queryParameters'),
-        )).thenThrow(DioException(
-          requestOptions: RequestOptions(path: ''),
+        ),).thenThrow(DioException(
+          requestOptions: RequestOptions(),
           response: TestData.apiSearchRepositoriesErrorDioResponse,
-        ));
+        ),);
 
         // Act & Assert
         expect(
@@ -196,7 +196,7 @@ void main() {
             'state': 'open',
             'per_page': 30,
           },
-        )).called(1);
+        ),).called(1);
       });
     });
   });

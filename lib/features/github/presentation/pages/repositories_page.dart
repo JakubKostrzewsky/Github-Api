@@ -76,25 +76,20 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
           RepositoriesLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
-          RepositoriesError(message: final message) =>
-            RepositoriesErrorWidget(message: message),
-          RepositoriesLoaded(
-            repositories: final repositories,
-            query: final query
-          ) =>
-            repositories.isEmpty
-                ? EmptyRepositoriesWidget(query: query)
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: repositories.length,
-                    itemBuilder: (context, index) {
-                      final repository = repositories[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: RepositoryListTile(repository: repository),
-                      );
-                    },
-                  ),
+          RepositoriesError(message: final message) => RepositoriesErrorWidget(message: message),
+          RepositoriesLoaded(repositories: final repositories, query: final query) => repositories.isEmpty
+              ? EmptyRepositoriesWidget(query: query)
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: repositories.length,
+                  itemBuilder: (context, index) {
+                    final repository = repositories[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: RepositoryListTile(repository: repository),
+                    );
+                  },
+                ),
         };
       },
     );
